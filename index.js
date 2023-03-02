@@ -10,8 +10,8 @@ app.get('/welcome', (req, res) => {
     return res.send("Bienvenido a mi app")
 })
 
-//const router = require('./router');
-//app.use(router);
+const router = require('./router');
+app.use(router);
 
 db.then(() => {
 
