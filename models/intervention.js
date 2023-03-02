@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Intervention.hasMany(models.Appointment,{
+        foreignKey: 'intervention_id'
+      });
     }
   }
   Intervention.init({
