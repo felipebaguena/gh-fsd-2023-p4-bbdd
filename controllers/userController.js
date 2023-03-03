@@ -1,4 +1,4 @@
-const {User, Role} = require('../models');
+const {User, Role, UserRole} = require('../models');
 
 const userController = {}
 const bcrypt = require('bcrypt');
@@ -22,6 +22,12 @@ userController.createUser = async(req,res)=>{
             phone
         }
         const user = await User.create(newUser)
+
+        await UserRole.create({
+            user_id : user.id,
+            role_id : 3
+        })
+
         return res.json(user)
     }catch (error) {
         return res.status(500).send(error.message)
