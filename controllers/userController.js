@@ -81,6 +81,29 @@ userController.deleteUser = async(req, res) =>{
         
     }
 }
+userController.getUser = async(req, res) =>{
+    try {
+        const users = await User.findAll();
+        return res.json(users);
+    } catch (error) {
+        return res.status(500).send(error.message)
+        
+    }
+}
+userController.getUserRole = async(req, res) =>{
+    try {
+        const userId = req.params.id;
+        
+        const userrole= await User.findByPk(userId,{
+            include:{all: true}
+        })
+        return res.json(userrole);
+    } catch (error) {
+        return res.status(500).send(error.message)
+        
+    }
+}
+
 
 
 
