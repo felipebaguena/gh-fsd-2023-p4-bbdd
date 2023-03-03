@@ -31,7 +31,7 @@ module.exports = {
         } 
       },
       date: {
-        type: Sequelize.DATE
+        type: Sequelize.STRING
       },
       comments: {
         type: Sequelize.STRING

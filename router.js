@@ -1,15 +1,13 @@
 const router = require('express').Router();
 
-const appointmentRoutes = require('./models/appointment');
 const roleRoutes = require('./views/roleRoutes');
 const userRoutes = require('./views/userRoutes');
-
+const appointRoutes = require('./views/appointRoutes');
 
 
 router.use('/', roleRoutes)
 router.use('/', userRoutes);
-router.use('/', appointmentRoutes);
-
+router.use('/', appointRoutes);
 
 
 
