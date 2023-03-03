@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      privilage: {
+      privilege: {
         type: Sequelize.STRING
       },
       createdAt: {
