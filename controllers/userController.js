@@ -172,6 +172,42 @@ userController.profile = async(req, res) => {
         )
     }
 }
+userController.updateUser = async (req, res) => {
+    try {
+        const { name, surname, email, password, nif, direction, birth_date, phone } = req.body;
+        const userId = req.userId;
+
+        const encryptedPassword = bcrypt.hashSync(password, 10);
+
+        const updateUSer = await User.update(
+            {
+
+            name,
+            surname,
+            email,
+            password: encryptedPassword,
+            nif,
+            direction,
+            birth_date,
+            phone
+
+            },
+            {
+                where: {
+                    id: userId
+                }
+            }
+        );
+
+        if (!updateUSer) {
+            return res.send('User not updated')
+        }
+
+        return res.send('User updated')
+    } catch (error) {
+        return res.status(500).send(error.message)
+    }
+}
 
 
 

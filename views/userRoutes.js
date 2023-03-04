@@ -10,6 +10,7 @@ router.get('/users',userController.getUser)
 router.get('/users/role/:id',userController.getUserRole)
 router.get('/users/appointments', verifyToken, userController.getAppointment)
 router.get('/profile',verifyToken,userController.profile)
+router.put('/updateprofile',verifyToken,userController.updateUser)
 
 
 
