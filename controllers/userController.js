@@ -221,6 +221,32 @@ userController.getAppointment = async (req, res) => {
     }
 }
 
+// ACTUALIZACIÓN FORMA DE PAGO
+
+
+userController.updatePayment = async (req, res) => {
+    try {
+      const { payment } = req.body;
+      
+      const patient = await Patient.findOne({
+        where: {
+          user_id: req.userId
+        }
+      });
+      
+      if (!patient) {
+        return res.send('Patient not found');
+      }
+      
+      patient.payment = payment;
+      await patient.save();
+  
+      return res.send('Patient payment updated');
+    } catch (error) {
+      return res.status(500).send(error.message);
+    }
+  }
+  
 
 // TERRITORIO ADMIN
 
