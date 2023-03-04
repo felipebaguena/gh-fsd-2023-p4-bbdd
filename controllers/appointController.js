@@ -6,6 +6,8 @@ appointController.getAppoint = (req, res) => {
     res.status(200).send('Todo está correcto');
 }
 
+// CREAR CITAS
+
 appointController.createAppoint = async(req, res) => {
     try {
         const { doctor_id, intervention_id, date, comments } = req.body;
@@ -23,6 +25,8 @@ appointController.createAppoint = async(req, res) => {
         return res.status(500).send(error.message)
     }
 };
+
+// ACTUALIZAR CITAS (Sólo pacientes)
 
 appointController.updateAppointment = async (req, res) => {
     try {
@@ -51,30 +55,7 @@ appointController.updateAppointment = async (req, res) => {
     }
 };
 
-// appointController.deleteAppointment = async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const patient_id = req.userId;
-
-//         const appointment = await Appointment.findOne({
-//             where: {
-//                 id: id,
-//                 patient_id: patient_id
-//             }
-//         });
-
-//         if (!appointment) {
-//             return res.status(404).send('Appointment not found');
-//         }
-
-//         await appointment.destroy();
-
-//         return res.send('Appointment deleted');
-
-//     } catch (error) {
-//         return res.status(500).send(error.message);
-//     }
-// };
+// BORRAR CITAS
 
 appointController.deleteAppointment = async (req, res) => {
     try {
@@ -113,6 +94,53 @@ appointController.deleteAppointment = async (req, res) => {
     }
 };
 
+// REVISAR CITAS FUTURAS
+
+const {Patient, Intervention} = require('../models');
+
+const { Op } = require('sequelize');
+
+appointController.getUpcomingAppointments = async (req, res) => {
+    try {
+        const appointments = await Appointment.findAll({
+            where: {
+                [Op.and]: [
+                    {
+                        date: {
+                            [Op.gte]: new Date(),
+                        },
+                    },
+                    {
+                        [Op.or]: [
+                            {
+                                patient_id: req.userId,
+                            },
+                            {
+                                doctor_id: req.userId,
+                            },
+                        ],
+                    },
+                ],
+            },
+            include: [
+                Intervention,
+                {
+                    model: Patient,
+                    attributes: {
+                        exclude: ["user_id", "role_id", "createdAt", "updatedAt"],
+                    },
+                },
+            ],
+            attributes: {
+                exclude: ["patient_id", "intervention_id"],
+            },
+        });
+
+        return res.json(appointments);
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+};
 
 // TERRITORIO ADMIN
 
@@ -124,5 +152,6 @@ appointController.getAllAppointments = async (req, res) => {
       return res.status(500).send(error.message);
     }
   };
+
 
 module.exports = appointController;

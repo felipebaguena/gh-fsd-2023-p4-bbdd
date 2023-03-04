@@ -16,4 +16,5 @@ router.put('/updateprofile',verifyToken,userController.updateUser)
 router.get('/admin/users', verifyToken, isAdmin, userController.getAllUsers)
 
 
+
 module.exports = router;

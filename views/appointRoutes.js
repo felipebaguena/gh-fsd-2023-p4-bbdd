@@ -10,4 +10,7 @@ router.put('/appoint', verifyToken, appointController.updateAppointment)
 router.delete('/appoint/:id', verifyToken, appointController.deleteAppointment)
 router.get('/admin/appoint', verifyToken, isAdmin, appointController.getAllAppointments)
 
+
+router.get('/appoint/comming',verifyToken,appointController.getUpcomingAppointments)
+
 module.exports = router;
