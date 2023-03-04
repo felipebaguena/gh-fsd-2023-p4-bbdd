@@ -156,7 +156,22 @@ userController.getAppointment = async (req, res) => {
         return res.status(500).send(error.message)
     }
 }
+userController.profile = async(req, res) => {
+    try {
+        const userId = req.userId;
+        const user = await User.findByPk(userId)
 
+        return res.json(user);
+    } catch (erro) {
+        return res.status(500).json(    
+            {
+                success: false,
+                message:"Something went wrong",
+                error_message: error.message
+            }
+        )
+    }
+}
 
 
 
