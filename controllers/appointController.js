@@ -24,4 +24,57 @@ appointController.createAppoint = async(req, res) => {
     }
 };
 
+appointController.updateAppointment = async (req, res) => {
+    try {
+        const { id, date } = req.body;
+        const patient_id = req.userId;
+
+        const appointment = await Appointment.findOne({
+            where: {
+                id: id,
+                patient_id: patient_id
+            }
+        });
+
+        if (!appointment) {
+            return res.status(404).send('Appointment not found');
+        }
+
+        await appointment.update({
+            date: date
+        });
+
+        return res.send('Appointment updated');
+
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+};
+
+appointController.deleteAppointment = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const patient_id = req.userId;
+
+        const appointment = await Appointment.findOne({
+            where: {
+                id: id,
+                patient_id: patient_id
+            }
+        });
+
+        if (!appointment) {
+            return res.status(404).send('Appointment not found');
+        }
+
+        await appointment.destroy();
+
+        return res.send('Appointment deleted');
+
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+};
+
+
 module.exports = appointController;
