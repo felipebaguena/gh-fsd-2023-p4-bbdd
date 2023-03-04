@@ -1,4 +1,4 @@
-const {User, Role, UserRole, Patient} = require('../models');
+const {User, Role, UserRole, Patient, Appointment, Intervention, Doctor} = require('../models');
 
 const userController = {}
 const bcrypt = require('bcrypt');
@@ -12,13 +12,13 @@ userController.createUser = async(req,res)=>{
 
         const newUser = {
 
-            name, 
-            surname, 
-            email, 
+            name,
+            surname,
+            email,
             password: encryptedPassword,
-            nif, 
-            direction, 
-            birth_date, 
+            nif,
+            direction,
+            birth_date,
             phone
         }
         const user = await User.create(newUser)
@@ -45,7 +45,7 @@ userController.login = async(req,res)=>{
         const{ email, password } = req.body;
 
         const user = await User.findOne(
-            { 
+            {
                 where:{
                     email: email
                 },
@@ -74,7 +74,7 @@ userController.login = async(req,res)=>{
         );
     return res.json(token)
     } catch (error) {
-        return res.status(500).send(error.message)  
+        return res.status(500).send(error.message)
     }
 }
 userController.deleteUser = async(req, res) =>{
@@ -84,7 +84,7 @@ userController.deleteUser = async(req, res) =>{
         return res.json(deleteUser);
     } catch (error) {
         return res.status(500).send(error.message)
-        
+
     }
 }
 userController.getUser = async(req, res) =>{
@@ -93,28 +93,69 @@ userController.getUser = async(req, res) =>{
         return res.json(users);
     } catch (error) {
         return res.status(500).send(error.message)
-        
+
     }
 }
 userController.getUserRole = async(req, res) =>{
     try {
         const userId = req.params.id;
-        
+
         const userrole= await User.findByPk(userId,{
             include:{all: true}
         })
         return res.json(userrole);
     } catch (error) {
         return res.status(500).send(error.message)
-        
+
     }
 }
 
 
+// VER CITAS
 
 
+userController.getAppointment = async (req, res) => {
+    try {
+        const userAppointment = await Appointment.findAll(
+            {
+                where: {
+                    patient_id: req.userId
+                },
+                include: [
+                    Intervention,
+                    {
+                        model: Patient,
+                        attributes: {
+                            exclude: ["user_id", "role_id", "createdAt", "updatedAt"]  
+                        },
+                        
+                        
+                    },
+                    // {
+                    //     model: Doctor,
+                    //     attributes: {
+                    //         exclude: ["user_id", "createdAt", "updatedAt"]
+                    //     },
+                    //     include: {
+                    //         model: User,
+                    //         attributes: {
+                    //             exclude: ["password", "role_id", "createdAt", "updatedAt"]
+                    //         },
+                    //     }
+                    // },
+                ],
+                attributes: {
+                    exclude: ["patient_id", "intervention_id"]
+                }
+            }
+        )
 
+        return res.json(userAppointment)
+    } catch (error) {
 
+        return res.status(500).send(error.message)
+    }
+}
 
 
 

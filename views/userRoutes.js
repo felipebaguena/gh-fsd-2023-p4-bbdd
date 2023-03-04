@@ -1,4 +1,5 @@
-const userController = require('../controllers/userController')
+const userController = require('../controllers/userController');
+const verifyToken = require('../middlewares/verifyToken');
 
 const router = require ('express').Router();
 
@@ -7,6 +8,7 @@ router.post('/users/login',userController.login)
 router.delete('/users/:id',userController.deleteUser)
 router.get('/users',userController.getUser)
 router.get('/users/role/:id',userController.getUserRole)
+router.get('/users/appointments', verifyToken, userController.getAppointment)
 
 
 
