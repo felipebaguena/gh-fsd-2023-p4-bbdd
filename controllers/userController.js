@@ -1,4 +1,4 @@
-const {User, Role, UserRole} = require('../models');
+const {User, Role, UserRole, Patient} = require('../models');
 
 const userController = {}
 const bcrypt = require('bcrypt');
@@ -26,6 +26,12 @@ userController.createUser = async(req,res)=>{
         await UserRole.create({
             user_id : user.id,
             role_id : 3
+        })
+
+        await Patient.create({
+            id: user.id,
+            user_id : user.id,
+            payment: "cash"
         })
 
         return res.json(user)
