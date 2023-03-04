@@ -114,4 +114,15 @@ appointController.deleteAppointment = async (req, res) => {
 };
 
 
+// TERRITORIO ADMIN
+
+appointController.getAllAppointments = async (req, res) => {
+    try {
+      const appointments = await Appointment.findAll();
+      return res.json(appointments);
+    } catch (error) {
+      return res.status(500).send(error.message);
+    }
+  };
+
 module.exports = appointController;
