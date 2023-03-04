@@ -1,5 +1,6 @@
 const userController = require('../controllers/userController');
 const verifyToken = require('../middlewares/verifyToken');
+const isAdmin = require('../middlewares/isAdmin');
 
 const router = require ('express').Router();
 
@@ -12,6 +13,7 @@ router.get('/users/appointments', verifyToken, userController.getAppointment)
 router.get('/profile',verifyToken,userController.profile)
 router.put('/updateprofile',verifyToken,userController.updateUser)
 
+router.get('/admin/users', verifyToken, isAdmin, userController.getAllUsers)
 
 
 module.exports = router;

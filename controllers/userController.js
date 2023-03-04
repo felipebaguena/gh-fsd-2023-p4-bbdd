@@ -222,4 +222,19 @@ userController.getAppointment = async (req, res) => {
 }
 
 
+// TERRITORIO ADMIN
+
+userController.getAllUsers = async (req, res) => {
+    try {
+        const users = await User.findAll({
+            attributes: { exclude: ['password'] } // Excluye la contraseña de los resultados
+        });
+
+        return res.json(users);
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+};
+
+
 module.exports = userController;
