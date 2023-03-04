@@ -111,51 +111,6 @@ userController.getUserRole = async(req, res) =>{
 }
 
 
-// VER CITAS
-
-
-userController.getAppointment = async (req, res) => {
-    try {
-        const userAppointment = await Appointment.findAll(
-            {
-                where: {
-                    patient_id: req.userId
-                },
-                include: [
-                    Intervention,
-                    {
-                        model: Patient,
-                        attributes: {
-                            exclude: ["user_id", "role_id", "createdAt", "updatedAt"]  
-                        },
-                        
-                        
-                    },
-                    // {
-                    //     model: Doctor,
-                    //     attributes: {
-                    //         exclude: ["user_id", "createdAt", "updatedAt"]
-                    //     },
-                    //     include: {
-                    //         model: User,
-                    //         attributes: {
-                    //             exclude: ["password", "role_id", "createdAt", "updatedAt"]
-                    //         },
-                    //     }
-                    // },
-                ],
-                attributes: {
-                    exclude: ["patient_id", "intervention_id"]
-                }
-            }
-        )
-
-        return res.json(userAppointment)
-    } catch (error) {
-
-        return res.status(500).send(error.message)
-    }
-}
 userController.profile = async(req, res) => {
     try {
         const userId = req.userId;
@@ -172,6 +127,8 @@ userController.profile = async(req, res) => {
         )
     }
 }
+
+
 userController.updateUser = async (req, res) => {
     try {
         const { name, surname, email, password, nif, direction, birth_date, phone } = req.body;
@@ -209,7 +166,60 @@ userController.updateUser = async (req, res) => {
     }
 }
 
+// VER CITAS
 
+userController.getAppointment = async (req, res) => {
+    try {
+        let userAppointment;
+
+        if (req.roles.includes("Doctor")) {
+            userAppointment = await Appointment.findAll(
+                {
+                    where: {
+                        doctor_id: req.userId
+                    },
+                    include: [
+                        Intervention,
+                        {
+                            model: Patient,
+                            attributes: {
+                                exclude: ["user_id", "role_id", "createdAt", "updatedAt"]
+                            },
+                        },
+                    ],
+                    attributes: {
+                        exclude: ["patient_id", "intervention_id"]
+                    }
+                }
+            )
+        } else {
+            userAppointment = await Appointment.findAll(
+                {
+                    where: {
+                        patient_id: req.userId
+                    },
+                    include: [
+                        Intervention,
+                        {
+                            model: Patient,
+                            attributes: {
+                                exclude: ["user_id", "role_id", "createdAt", "updatedAt"]
+                            },
+                        },
+                    ],
+                    attributes: {
+                        exclude: ["patient_id", "intervention_id"]
+                    }
+                }
+            )
+        }
+
+        return res.json(userAppointment)
+    } catch (error) {
+
+        return res.status(500).send(error.message)
+    }
+}
 
 
 module.exports = userController;

@@ -51,20 +51,57 @@ appointController.updateAppointment = async (req, res) => {
     }
 };
 
+// appointController.deleteAppointment = async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const patient_id = req.userId;
+
+//         const appointment = await Appointment.findOne({
+//             where: {
+//                 id: id,
+//                 patient_id: patient_id
+//             }
+//         });
+
+//         if (!appointment) {
+//             return res.status(404).send('Appointment not found');
+//         }
+
+//         await appointment.destroy();
+
+//         return res.send('Appointment deleted');
+
+//     } catch (error) {
+//         return res.status(500).send(error.message);
+//     }
+// };
+
 appointController.deleteAppointment = async (req, res) => {
     try {
         const { id } = req.params;
-        const patient_id = req.userId;
+        const userId = req.userId;
+        const userRoles = req.roles;
 
-        const appointment = await Appointment.findOne({
-            where: {
-                id: id,
-                patient_id: patient_id
-            }
-        });
+        let appointment;
+
+        if (userRoles.includes("Doctor")) {
+            appointment = await Appointment.findOne({
+                where: {
+                    id: id,
+                    doctor_id: userId
+                }
+            });
+        } else {
+            appointment = await Appointment.findOne({
+                where: {
+                    id: id,
+                    patient_id: userId
+                }
+            });
+        }
 
         if (!appointment) {
-            return res.status(404).send('Appointment not found');
+            return res.status(500).send('Appointment not found');
         }
 
         await appointment.destroy();
