@@ -5,7 +5,7 @@
   <ol>
     <li><a href="#objetivo">Objetivo</a></li>
     <li><a href="#sobre-el-proyecto">Sobre el proyecto</a></li>
-    <li><a href="#deploy-🚀">Deploy</a></li>
+    <!-- <li><a href="#deploy-🚀">Deploy</a></li> -->
     <li><a href="#stack">Stack</a></li>
     <li><a href="#diagrama-bd">Diagrama</a></li>
     <li><a href="#instalación-en-local">Instalación</a></li>
@@ -27,10 +27,10 @@ En este proyecto hemos desarrollado una API funcional conectada a una base de da
 ## Sobre el proyecto
 En nuestra API, los usuarios pueden registrarse a través de un formulario en el que se les pedirán datos personales. Con el registro, se les asigna un número de usuario y de paciente, así como un rol de usuario. El administrador podrá asignar roles a los usuarios, para que, en el caso de contratación de nuevos doctores, pueda identificarlos. Con el reparto de roles realizado, la API dispone de barreras y bifurcacioens para que, de forma orgánica, los usuarios puedan acceder a su perfil, crear citas y revisar datos de interés en función de los roles.
 
-## Deploy 🚀
+<!-- ## Deploy 🚀
 <div align="center">
     <a href="https://www.google.com"><strong>Url a producción </strong></a>🚀🚀🚀
-</div>
+</div> -->
 
 ## Stack
 Tecnologías utilizadas:
@@ -225,10 +225,9 @@ Tecnologías utilizadas:
 </details>
 
 ## Futuras funcionalidades
-[ ] Añadir create book  
-[ ] Añadir logs  con winston  
-[ ] Validaciones de la solicitud con express-validator  
-[ ] ...
+[ ] Este proyecto está planteado para funcionar con un frontend desarrollado en React.
+[ ] En el futuro, esperamos implementar los servicios para limpiar el código de los controladores.  
+[ ] Un sistema de validación para las solicitudes de borrado de usuarios. 
 
 ## Contribuciones
 Las sugerencias y aportaciones son siempre bienvenidas.  
@@ -252,21 +251,17 @@ Puedes hacerlo de dos maneras:
     - Abre una solicitud de Pull Request
 
 ## Licencia
-Este proyecto se encuentra bajo licencia de "Mi Nombre"
+Este proyecto se encuentra bajo licencia de Felipe Báguena Peña y Alyna Nastas Romaniuc.
 
 ## Webgrafia:
-Para conseguir mi objetivo he recopilado información de:
-- link a repositorios 
-- link a documentacion de librerias externas
-- ...
+Para el desarrollo del proyecto se ha consultado en:
+- <a href="https://sequelize.org/"><strong>Documentación de Sequelize</strong></a>
+- <a href="https://jwt.io/"><strong>Sitio web de JSON Web Tokens</strong></a>
+- <a href="https://pypi.org/project/bcrypt/"><strong>Documentación de Bcrypt</strong></a>
 
 ## Desarrollo:
 
-``` js
- const developer = "datata";
-
- console.log("Desarrollado por: " + datata);
-```  
+Todo el proyecto ha sido desarrollado por Felipe Báguena Peña y Alyna Nastas Romaniuc.
 
 ## Agradecimientos:
 
@@ -281,7 +276,16 @@ Agradezco a mis compañeros el tiempo dedicado a este proyecto:
 - ***Mara***  
 <a href="https://www.github.com/userGithub/" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=green" target="_blank"></a> 
 
+- ***Dani***  
+<a href="https://www.github.com/userGithub/" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=green" target="_blank"></a> 
+
 ## Contacto
-<a href = "mailto:micorreoelectronico@gmail.com"><img src="https://img.shields.io/badge/Gmail-C6362C?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-<a href="https://www.linkedin.com/in/linkedinUser/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
-</p>
+
+- ***Felipe Báguena***  
+<a href = "mailto:felipebaguena@gmail.com"><img src="https://img.shields.io/badge/Gmail-C6362C?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://github.com/felipebaguena" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=green" target="_blank"></a> 
+
+- ***Alyna Nastas***  
+
+<a href = "mailto:https://github.com/AlynaNastas"><img src="https://img.shields.io/badge/Gmail-C6362C?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://github.com/AlynaNastas" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=green" target="_blank"></a> 
