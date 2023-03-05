@@ -10,7 +10,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       privilege: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        required: true,
+        unique: true
       },
       createdAt: {
         allowNull: false,

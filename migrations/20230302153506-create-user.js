@@ -10,19 +10,26 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        required: true
       },
       surname: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        required: true
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        required: true,
+        unique: true
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        required: true,
       },
       nif: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        required: true,
+        unique: true
       },
       direction: {
         type: Sequelize.STRING
@@ -31,7 +38,9 @@ module.exports = {
         type: Sequelize.DATE
       },
       phone: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        required: true,
+        unique: true
       },
       createdAt: {
         allowNull: false,
