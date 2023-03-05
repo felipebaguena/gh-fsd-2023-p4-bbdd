@@ -151,9 +151,9 @@ Tecnologías utilizadas:
         ```
 
     - ACTUALIZAR MÉTODO DE PAGO COMO CLIENTE
-            ```
+
         ` $ Requiere token (login)`
-            ```
+
 
             PUT http://localhost:3000/updateprofile/payment
         body:
@@ -164,9 +164,9 @@ Tecnologías utilizadas:
         ```
 
     - CREAR NUEVOS ROLES
-            ```
-        $ Requiere token (login) y rol de Admin
-            ```
+
+        `$ Requiere token (login) y rol de Admin`
+
 
             POST http://localhost:3000/roles
         body:
@@ -177,7 +177,8 @@ Tecnologías utilizadas:
         ```
 
     - CREAR NUEVAS CITAS
-        ` $ Requiere token (login)`
+
+        `$ Requiere token (login)`
 
             POST http://localhost:3000/appoint
         body:
@@ -190,7 +191,8 @@ Tecnologías utilizadas:
         ```
 
     - MODIFICAR CITAS
-        ` $ Requiere token (login)`
+
+        `$ Requiere token (login)`
 
             PUT http://localhost:3000/appoint
         body:
@@ -202,32 +204,38 @@ Tecnologías utilizadas:
         ```
 
     - CANCELAR CITAS
-        ` $ Requiere token (login)`
+
+        `$ Requiere token (login)`
 
             DELETE http://localhost:3000/appoint/:id
 
     - VER CITAS PENDIENTES
-        ` $ Requiere token (login)`
+
+        `$ Requiere token (login)`
 
             GET http://localhost:3000/appoint/coming
 
     - VER TODOS LOS USUARIOS REGISTRADOS
-        ` $ Requiere token (login) y rol de Admin`
+
+        `$ Requiere token (login) y rol de Admin`
 
             GET http://localhost:3000/admin/users
 
     - VER TODAS LAS CITAS DE LA CLÍNICA
-        ` $ Requiere token (login) y rol de Admin`
+
+        `$ Requiere token (login) y rol de Admin`
 
             GET http://localhost:3000/admin/appoint
     
     - VER TODOS LOS DOCTORES DE LA CLÍNICA
-        ` $ Requiere token (login) y rol de Admin`
+
+        `$ Requiere token (login) y rol de Admin`
 
             GET http://localhost:3000/admin/doctors
 
     - CREAR NUEVOS SERVICIOS
-        ` $ Requiere token (login) y rol de Admin`
+
+        `$ Requiere token (login) y rol de Admin`
 
             POST http://localhost:3000/appoint
         body:
@@ -239,7 +247,8 @@ Tecnologías utilizadas:
             }
         ```
     - DARSE DE ALTA COMO DOCTOR
-        ` $ Requiere token (login) y rol de Doctor`
+
+        `$ Requiere token (login) y rol de Doctor`
 
             POST http://localhost:3000/doctors
         body:
@@ -251,7 +260,8 @@ Tecnologías utilizadas:
         ```
 
     - ASIGNAR ROLES A UN USUARIO
-        ` $ Requiere token (login) y rol de Admin`
+
+        `$ Requiere token (login) y rol de Admin`
 
             POST http://localhost:3000/admin/roles
         body:
@@ -263,7 +273,8 @@ Tecnologías utilizadas:
         ```
 
     - VER ROLES DE UN USUARIO
-        ` $ Requiere token (login) y rol de Admin`
+
+        `$ Requiere token (login) y rol de Admin`
 
             GET http://localhost:3000/users/role/:id
 
