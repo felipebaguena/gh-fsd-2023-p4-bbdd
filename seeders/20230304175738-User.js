@@ -12,7 +12,7 @@ module.exports = {
     await queryInterface.bulkInsert('Users',
   [
       {id: 1,name: "Alyna", surname: "Nastas Romaniuc", email: "alyna@alyna.com",password: encryptedPassword, nif: "335267282S", direction: "Juan Luis 3", birth_date: "1992-04-30", phone: "6766573883", updatedAt: "2023-03-04", createdAt: "2023-03-04"},
-      {id: 2,name: "Ignacio", surname: "Furio", email: "ignacio@gmail.com", password: encryptedPassword, nif: "335267282S",direction: "Juan Martin de la vera 5", birth_date: "1991-05-20", phone: "333222111", createdAt: "2023-02-22", updatedAt: "2023-02-22"},
+      {id: 2,name: "Ignacio", surname: "Furio", email: "ignacio@gmail.com", password: encryptedPassword, nif: "335267282S",direction: "Juan Martin de la vera 5", birth_date: "1991-05-20", phone: "333222111", updatedAt: "2023-03-04", createdAt: "2023-03-04"},
       {id: 3,name: "María", surname: "Josep Fernández", email: "maria@maria.com",password: encryptedPassword, nif: "31233282S", direction: "Luis de Bremont 23", birth_date: "1960-04-30", phone: "653373883", updatedAt: "2023-03-04", createdAt: "2023-03-04"},
       {id: 4,name: "Álvaro", surname: "Bernabé", email: "alvaro@alvro.com",password: encryptedPassword, nif: "876267282S", direction: "Azah de acosta 54", birth_date: "1993-10-10", phone: "676611283", updatedAt: "2023-03-04", createdAt: "2023-03-04"},
       {id: 5,name: "Lidia", surname: "Bernabé", email: "lidia@lidia.com",password: encryptedPassword, nif: "675267282S", direction: "Rafalafena 38", birth_date: "1986-04-10", phone: "556573883", updatedAt: "2022-03-04", createdAt: "2022-03-04"},
