@@ -3,12 +3,12 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Specialities',
+    await queryInterface.bulkInsert('Doctors',
     [
-      {id: 1, speciality_id: 1, doctor_number: 1, updatedAt: "2023-03-04", createdAt: "2023-01-12"},
-      {id: 2, speciality_id: 2, doctor_number: 2, updatedAt: "2023-03-04", createdAt: "2023-01-12"},
-      {id: 3, speciality_id: 3, doctor_number: 3, updatedAt: "2023-03-04", createdAt: "2023-01-12"},
-      
+      {id: 1, user_id: 4, speciality_id: 1, doctor_number: 1, updatedAt: "2023-03-04", createdAt: "2023-01-12"},
+      {id: 2, user_id: 5, speciality_id: 2, doctor_number: 2, updatedAt: "2023-03-04", createdAt: "2023-01-12"},
+      {id: 3, user_id: 3, speciality_id: 3, doctor_number: 3, updatedAt: "2023-03-04", createdAt: "2023-01-12"},
+
     ], {});
   },
 
