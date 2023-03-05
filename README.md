@@ -53,11 +53,19 @@ Tecnologías utilizadas:
 ## Instalación en local
 1. Clonar el repositorio
 2. ` $ npm install `
-3. Conectamos nuestro repositorio con la base de datos 
-4. ``` $ Ejecutamos las migraciones ``` 
-5. ``` $ Ejecutamos los seeders ``` 
+3. Instalamos las dependencias
+   ` $ bcrypt`
+   ` $ dotenv`
+   ` $ express`
+   ` $ jsonwebtoken`
+   ` $ mysql2`
+   ` $ nodemon`
+   ` $ sequelize`
+   ` $ sequelize-cli`
+4. Conectamos nuestro repositorio con la base de datos 
+5. ``` $ Ejecutamos las migraciones ``` 
+6. ``` $ Ejecutamos los seeders ``` 
 6. ``` $ npm run dev ``` 
-7. ...
 
 ## Endpoints
 <details>
@@ -93,18 +101,23 @@ Tecnologías utilizadas:
         ```
 
     - BORRAR USUARIO POR ID
+        ` $ Requiere token (login) y rol de Admin`
 
             DELETE http://localhost:3000/users/:id
 
     - VER CITAS
+        ` $ Requiere token (login)`
+        ` $ Dependiendo del rol, podremos ver las citas registradas como paciente o como doctor`
 
             GET http://localhost:3000/users/appointments
 
     - PERFIL DE USUARIO
+        ` $ Requiere token (login)`
 
             GET http://localhost:3000/profile
 
     - ACTUALIZAR PERFIL DE USUARIO
+        ` $ Requiere token (login)`
 
             PUT http://localhost:3000/updateprofile
         body:
@@ -122,6 +135,7 @@ Tecnologías utilizadas:
         ```
 
     - ACTUALIZAR MÉTODO DE PAGO COMO CLIENTE
+        ` $ Requiere token (login)`
 
             PUT http://localhost:3000/updateprofile/payment
         body:
@@ -132,6 +146,7 @@ Tecnologías utilizadas:
         ```
 
     - CREAR NUEVOS ROLES
+        ` $ Requiere token (login) y rol de Admin`
 
             POST http://localhost:3000/roles
         body:
@@ -142,6 +157,7 @@ Tecnologías utilizadas:
         ```
 
     - CREAR NUEVAS CITAS
+        ` $ Requiere token (login)`
 
             POST http://localhost:3000/appoint
         body:
@@ -153,39 +169,45 @@ Tecnologías utilizadas:
             }
         ```
 
-    - CREAR NUEVAS CITAS
+    - MODIFICAR CITAS
+        ` $ Requiere token (login)`
 
-            POST http://localhost:3000/appoint
+            PUT http://localhost:3000/appoint
         body:
         ``` js
             {
-                "doctor_id": 3,
-                "intervention_id": 1,
-                "date": "2023-03-07 11:00",
+                "id": 3,
+                "date": "2023-03-09 13:00"
             }
         ```
 
     - CANCELAR CITAS
+        ` $ Requiere token (login)`
 
             DELETE http://localhost:3000/appoint/:id
 
     - VER CITAS PENDIENTES
+        ` $ Requiere token (login)`
 
             GET http://localhost:3000/appoint/coming
 
     - VER TODOS LOS USUARIOS REGISTRADOS
+        ` $ Requiere token (login) y rol de Admin`
 
             GET http://localhost:3000/admin/users
 
-    - VER TOAS LAS CITAS DE LA CLÍNICA
+    - VER TODAS LAS CITAS DE LA CLÍNICA
+        ` $ Requiere token (login) y rol de Admin`
 
             GET http://localhost:3000/admin/appoint
     
-    - VER TOAS LAS CITAS DE LA CLÍNICA
+    - VER TODOS LOS DOCTORES DE LA CLÍNICA
+        ` $ Requiere token (login) y rol de Admin`
 
             GET http://localhost:3000/admin/doctors
 
     - CREAR NUEVOS SERVICIOS
+        ` $ Requiere token (login) y rol de Admin`
 
             POST http://localhost:3000/appoint
         body:
@@ -197,6 +219,7 @@ Tecnologías utilizadas:
             }
         ```
     - DARSE DE ALTA COMO DOCTOR
+        ` $ Requiere token (login) y rol de Doctor`
 
             POST http://localhost:3000/doctors
         body:
@@ -208,6 +231,7 @@ Tecnologías utilizadas:
         ```
 
     - ASIGNAR ROLES A UN USUARIO
+        ` $ Requiere token (login) y rol de Admin`
 
             POST http://localhost:3000/admin/roles
         body:
@@ -219,6 +243,7 @@ Tecnologías utilizadas:
         ```
 
     - VER ROLES DE UN USUARIO
+        ` $ Requiere token (login) y rol de Admin`
 
             GET http://localhost:3000/users/role/:id
 
@@ -267,17 +292,17 @@ Todo el proyecto ha sido desarrollado por Felipe Báguena Peña y Alyna Nastas R
 
 Agradezco a mis compañeros el tiempo dedicado a este proyecto:
 
-- *Jose*  
-<a href="https://github.com/Dave86dev" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a> 
+- **Jose**  
+<a href="https://github.com/JoseMarin" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a> 
 
 - **David**  
-<a href="https://www.github.com/userGithub/" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=red" target="_blank"></a>
+<a href="https://github.com/Dave86dev" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=red" target="_blank"></a>
 
 - ***Mara***  
-<a href="https://www.github.com/userGithub/" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=green" target="_blank"></a> 
+<a href="https://github.com/MaraScampini" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=green" target="_blank"></a> 
 
 - ***Dani***  
-<a href="https://www.github.com/userGithub/" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=green" target="_blank"></a> 
+<a href="https://github.com/datata" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=green" target="_blank"></a> 
 
 ## Contacto
 
@@ -286,6 +311,5 @@ Agradezco a mis compañeros el tiempo dedicado a este proyecto:
 <a href="https://github.com/felipebaguena" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=green" target="_blank"></a> 
 
 - ***Alyna Nastas***  
-
 <a href = "mailto:https://github.com/AlynaNastas"><img src="https://img.shields.io/badge/Gmail-C6362C?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
 <a href="https://github.com/AlynaNastas" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=green" target="_blank"></a> 
