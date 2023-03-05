@@ -170,56 +170,69 @@ userController.updateUser = async (req, res) => {
 
 userController.getAppointment = async (req, res) => {
     try {
-        let userAppointment;
-
-        if (req.roles.includes("Doctor")) {
-            userAppointment = await Appointment.findAll(
+      let userAppointment;
+  
+      if (req.roles.includes('Doctor')) {
+        userAppointment = await Appointment.findAll({
+          where: {
+            doctor_id: req.userId,
+          },
+          include: [
+            {
+                model: Intervention,
+                attributes: { exclude: ['createdAt', 'updatedAt'] },
+            },
+            {
+              model: Patient,
+              include: [
                 {
-                    where: {
-                        doctor_id: req.userId
-                    },
-                    include: [
-                        Intervention,
-                        {
-                            model: Patient,
-                            attributes: {
-                                exclude: ["user_id", "role_id", "createdAt", "updatedAt"]
-                            },
-                        },
-                    ],
-                    attributes: {
-                        exclude: ["patient_id", "intervention_id"]
-                    }
-                }
-            )
-        } else {
-            userAppointment = await Appointment.findAll(
+                    model: User,
+                    attributes: { exclude: ['id', 'password', 'updatedAt'] }
+            }],
+              attributes: {
+                exclude: ['user_id', 'role_id', 'createdAt', 'updatedAt'],
+              },
+            },
+          ],
+          attributes: {
+            exclude: ['patient_id', 'intervention_id'],
+          },
+        });
+      } else {
+        userAppointment = await Appointment.findAll({
+          where: {
+            patient_id: req.userId,
+          },
+          include: [
+            {
+                model: Intervention,
+                attributes: { exclude: ['createdAt', 'updatedAt'] },
+            },
+            {
+              model: Patient,
+              include: [
                 {
-                    where: {
-                        patient_id: req.userId
-                    },
-                    include: [
-                        Intervention,
-                        {
-                            model: Patient,
-                            attributes: {
-                                exclude: ["user_id", "role_id", "createdAt", "updatedAt"]
-                            },
-                        },
-                    ],
-                    attributes: {
-                        exclude: ["patient_id", "intervention_id"]
-                    }
-                }
-            )
-        }
-
-        return res.json(userAppointment)
+                    model: User,
+                    attributes: ['name', 'surname'],
+                },
+              ],
+              attributes: {
+                exclude: ['user_id', 'role_id', 'createdAt', 'updatedAt'],
+              },
+            },
+          ],
+          attributes: {
+            exclude: ['patient_id', 'intervention_id'],
+          },
+        });
+      }
+  
+      return res.json(userAppointment);
     } catch (error) {
-
-        return res.status(500).send(error.message)
+      return res.status(500).send(error.message);
     }
-}
+  };
+
 
 // ACTUALIZACIÓN FORMA DE PAGO
 
