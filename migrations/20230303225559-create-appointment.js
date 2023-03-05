@@ -14,21 +14,27 @@ module.exports = {
         references: {
           model: "Doctors",
           key:"id"
-        } 
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       patient_id: {
         type: Sequelize.INTEGER,
         references: {
           model: "Patients",
           key:"id"
-        } 
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       intervention_id: {
         type: Sequelize.INTEGER,
         references: {
           model: "Interventions",
           key:"id"
-        } 
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       date: {
         type: Sequelize.STRING
