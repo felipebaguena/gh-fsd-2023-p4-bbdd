@@ -6,7 +6,7 @@ appointController.getAppoint = (req, res) => {
     res.status(200).send('Todo está correcto');
 }
 
-// CREAR CITAS
+// CREAR CITAS (Sólo pacientes)
 
 appointController.createAppoint = async(req, res) => {
     try {
@@ -55,7 +55,7 @@ appointController.updateAppointment = async (req, res) => {
     }
 };
 
-// BORRAR CITAS
+// BORRAR CITAS (Disponible para Pacientes y Doctores)
 
 appointController.deleteAppointment = async (req, res) => {
     try {
@@ -94,7 +94,7 @@ appointController.deleteAppointment = async (req, res) => {
     }
 };
 
-// REVISAR CITAS FUTURAS
+// REVISAR CITAS PENDIENTES
 
 const {Patient, Intervention} = require('../models');
 
@@ -142,7 +142,7 @@ appointController.getUpcomingAppointments = async (req, res) => {
     }
 };
 
-// TERRITORIO ADMIN
+// REVISAR TODAS LAS CITAS DE LA CLÍNICA (Requiere ser Admin)
 
 appointController.getAllAppointments = async (req, res) => {
     try {

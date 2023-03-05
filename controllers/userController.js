@@ -4,6 +4,10 @@ const userController = {}
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+/////// ZONA USER ///////
+
+// REGISTRO DE USUARIO (Genera la id de paciente, el rol de usuario y establece un método de pago predefinido)
+
 userController.createUser = async(req,res)=>{
     try{
         const {name, surname, email, password, nif, direction, birth_date, phone} = req.body;
@@ -39,6 +43,8 @@ userController.createUser = async(req,res)=>{
         return res.status(500).send(error.message)
     }
 }
+
+// LOGIN DE USUARIO (Almacena la id y los roles en el token)
 
 userController.login = async(req,res)=>{
     try {
@@ -77,6 +83,9 @@ userController.login = async(req,res)=>{
         return res.status(500).send(error.message)
     }
 }
+
+// BORRADO DE USUARIO (Sólo disponible para el Admin)
+
 userController.deleteUser = async(req, res) =>{
     try {
         const userId = req.params.id;
@@ -87,29 +96,8 @@ userController.deleteUser = async(req, res) =>{
 
     }
 }
-userController.getUser = async(req, res) =>{
-    try {
-        const users = await User.findAll();
-        return res.json(users);
-    } catch (error) {
-        return res.status(500).send(error.message)
 
-    }
-}
-userController.getUserRole = async(req, res) =>{
-    try {
-        const userId = req.params.id;
-
-        const userrole= await User.findByPk(userId,{
-            include:{all: true}
-        })
-        return res.json(userrole);
-    } catch (error) {
-        return res.status(500).send(error.message)
-
-    }
-}
-
+// PERFIL DE USUARIO (Acceso sólo para el propio usuario)
 
 userController.profile = async(req, res) => {
     try {
@@ -128,6 +116,7 @@ userController.profile = async(req, res) => {
     }
 }
 
+// ACTUALIAR DATOS DE USUARIO (Acceso sólo para el propio usuario)
 
 userController.updateUser = async (req, res) => {
     try {
@@ -166,63 +155,74 @@ userController.updateUser = async (req, res) => {
     }
 }
 
-// VER CITAS
+// VER CITAS (Los usuarios ven sus propias citas y los doctores verán las que tienen asignadas)
 
 userController.getAppointment = async (req, res) => {
     try {
-        let userAppointment;
-
-        if (req.roles.includes("Doctor")) {
-            userAppointment = await Appointment.findAll(
+      let userAppointment;
+  
+      if (req.roles.includes('Doctor')) {
+        userAppointment = await Appointment.findAll({
+          where: {
+            doctor_id: req.userId,
+          },
+          include: [
+            {
+                model: Intervention,
+                attributes: { exclude: ['createdAt', 'updatedAt'] },
+            },
+            {
+              model: Patient,
+              include: [
                 {
-                    where: {
-                        doctor_id: req.userId
-                    },
-                    include: [
-                        Intervention,
-                        {
-                            model: Patient,
-                            attributes: {
-                                exclude: ["user_id", "role_id", "createdAt", "updatedAt"]
-                            },
-                        },
-                    ],
-                    attributes: {
-                        exclude: ["patient_id", "intervention_id"]
-                    }
-                }
-            )
-        } else {
-            userAppointment = await Appointment.findAll(
+                    model: User,
+                    attributes: { exclude: ['id', 'password', 'updatedAt'] }
+            }],
+              attributes: {
+                exclude: ['user_id', 'role_id', 'createdAt', 'updatedAt'],
+              },
+            },
+          ],
+          attributes: {
+            exclude: ['patient_id', 'intervention_id'],
+          },
+        });
+      } else {
+        userAppointment = await Appointment.findAll({
+          where: {
+            patient_id: req.userId,
+          },
+          include: [
+            {
+                model: Intervention,
+                attributes: { exclude: ['createdAt', 'updatedAt'] },
+            },
+            {
+              model: Patient,
+              include: [
                 {
-                    where: {
-                        patient_id: req.userId
-                    },
-                    include: [
-                        Intervention,
-                        {
-                            model: Patient,
-                            attributes: {
-                                exclude: ["user_id", "role_id", "createdAt", "updatedAt"]
-                            },
-                        },
-                    ],
-                    attributes: {
-                        exclude: ["patient_id", "intervention_id"]
-                    }
-                }
-            )
-        }
-
-        return res.json(userAppointment)
+                    model: User,
+                    attributes: ['name', 'surname'],
+                },
+              ],
+              attributes: {
+                exclude: ['user_id', 'role_id', 'createdAt', 'updatedAt'],
+              },
+            },
+          ],
+          attributes: {
+            exclude: ['patient_id', 'intervention_id'],
+          },
+        });
+      }
+  
+      return res.json(userAppointment);
     } catch (error) {
-
-        return res.status(500).send(error.message)
+      return res.status(500).send(error.message);
     }
-}
+  };
 
-// ACTUALIZACIÓN FORMA DE PAGO
-
+// ACTUALIZACIÓN FORMA DE PAGO (Para los clientes)
 
 userController.updatePayment = async (req, res) => {
     try {
@@ -248,7 +248,9 @@ userController.updatePayment = async (req, res) => {
   }
   
 
-// TERRITORIO ADMIN
+/////// ZONA ADMIN ///////
+
+// VER TODOS LOS USUARIOS
 
 userController.getAllUsers = async (req, res) => {
     try {
@@ -261,6 +263,8 @@ userController.getAllUsers = async (req, res) => {
         return res.status(500).send(error.message);
     }
 };
+
+// VER TODOS LOS DOCTORES
 
 userController.getDoctors = async (req, res) => {
     try {
@@ -281,6 +285,8 @@ userController.getDoctors = async (req, res) => {
     }
   };
 
+// AÑADIR ROLES A LOS USUARIOS
+
 userController.addRole = async(req,res)=>{
     try{
         const {user_id, role_id} = req.body;
@@ -298,8 +304,25 @@ userController.addRole = async(req,res)=>{
     }
 }
 
+// REVISAR ROLES DE USUARIOS (Por id)
 
-// NUEVO DOCTOR (Requiere ROL Doctor)
+userController.getUserRole = async(req, res) =>{
+    try {
+        const userId = req.params.id;
+
+        const userrole= await User.findByPk(userId,{
+            include:{all: true}
+        })
+        return res.json(userrole);
+    } catch (error) {
+        return res.status(500).send(error.message)
+
+    }
+}
+
+/////// ZONA DOCTOR ///////
+
+// ALTA COMO DOCTOR (Especialidad y número de colegiado. Requiere el ROL Doctor)
 
 userController.createDoctor = async(req,res)=>{
     try{

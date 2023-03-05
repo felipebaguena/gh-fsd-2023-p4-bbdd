@@ -1,7 +1,8 @@
-const roleController = require('../controllers/roleController')
-
+const roleController = require('../controllers/roleController');
+const verifyToken = require('../middlewares/verifyToken');
+const isAdmin = require('../middlewares/isAdmin');
 const router = require ('express').Router();
 
-router.post('/roles',roleController.createRole)
+router.post('/roles', verifyToken, isAdmin, roleController.createRole)
 
 module.exports = router;
