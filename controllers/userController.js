@@ -282,6 +282,26 @@ userController.getDoctors = async (req, res) => {
   };
   
 
+// NUEVO DOCTOR (Requiere ROL Doctor)
 
+userController.createDoctor = async(req,res)=>{
+    try{
+        const {speciality_id, doctor_number} = req.body;
+        const userId = req.userId;
+
+        const newDoctor = {
+            id: userId,
+            user_id: userId,
+            speciality_id,
+            doctor_number,
+        }
+        
+        const doctor = await Doctor.create(newDoctor)
+
+        return res.json(doctor)
+    }catch (error) {
+        return res.status(500).send(error.message)
+    }
+}
 
 module.exports = userController;

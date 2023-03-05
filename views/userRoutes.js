@@ -1,6 +1,7 @@
 const userController = require('../controllers/userController');
 const verifyToken = require('../middlewares/verifyToken');
 const isAdmin = require('../middlewares/isAdmin');
+const isDoctor = require('../middlewares/isDoctor');
 
 const router = require ('express').Router();
 
@@ -17,6 +18,9 @@ router.put('/updateprofile/payment',verifyToken,userController.updatePayment)
 
 router.get('/admin/users', verifyToken, isAdmin, userController.getAllUsers)
 router.get('/admin/doctors', verifyToken, isAdmin, userController.getDoctors)
+
+
+router.post('/doctors',verifyToken, isDoctor, userController.createDoctor)
 
 
 
