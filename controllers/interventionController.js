@@ -2,6 +2,8 @@ const {Intervention} = require('../models');
 
 const interventionController = {}
 
+// NUEVO SERVICIO DISPONIBLE PARA LA CLÍNICA (REQUIERE SER ADMIN)
+
 interventionController.newIntervention = async(req, res) => {
     try {
         const { name, description, price } = req.body;
