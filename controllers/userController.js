@@ -253,7 +253,7 @@ userController.updatePayment = async (req, res) => {
 userController.getAllUsers = async (req, res) => {
     try {
         const users = await User.findAll({
-            attributes: { exclude: ['password'] } // Excluye la contraseña de los resultados
+            attributes: { exclude: ['password'] }
         });
 
         return res.json(users);
@@ -280,7 +280,24 @@ userController.getDoctors = async (req, res) => {
       return res.status(500).send(error.message);
     }
   };
-  
+
+userController.addRole = async(req,res)=>{
+    try{
+        const {user_id, role_id} = req.body;
+
+        const addRole = {
+            user_id,
+            role_id
+        }
+        
+        const urole = await UserRole.create(addRole)
+
+        return res.json(urole)
+    }catch (error) {
+        return res.status(500).send(error.message)
+    }
+}
+
 
 // NUEVO DOCTOR (Requiere ROL Doctor)
 

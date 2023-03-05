@@ -18,6 +18,7 @@ router.put('/updateprofile/payment',verifyToken,userController.updatePayment)
 
 router.get('/admin/users', verifyToken, isAdmin, userController.getAllUsers)
 router.get('/admin/doctors', verifyToken, isAdmin, userController.getDoctors)
+router.post('/admin/roles', verifyToken, isAdmin, userController.addRole)
 
 
 router.post('/doctors',verifyToken, isDoctor, userController.createDoctor)
