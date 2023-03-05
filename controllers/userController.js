@@ -311,8 +311,9 @@ userController.getUserRole = async(req, res) =>{
         const userId = req.params.id;
 
         const userrole= await User.findByPk(userId,{
-            include:{all: true}
-        })
+          include:{all: true},
+          attributes: {exclude: ['password']}
+      })
         return res.json(userrole);
     } catch (error) {
         return res.status(500).send(error.message)
