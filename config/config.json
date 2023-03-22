@@ -1,10 +1,10 @@
 {
   "development": {
     "username": "root",
-    "password": "root",
-    "database": "Clinica Dental",
-    "host": "127.0.0.1",
-    "port":"3306",
+    "password": "Gb8x3CcTdzGNACne8DV9",
+    "database": "railway",
+    "host": "containers-us-west-59.railway.app",
+    "port": 6354,
     "dialect": "mysql"
   },
   "test": {
